@@ -2,6 +2,13 @@
 
 Fixes #120
 
+## Enhanced Solution with Robust Preprocessing Pipeline
+
+We've created two new utility files to provide a more robust solution:
+
+1. `preprocessing_utils.py`: A scikit-learn compatible preprocessing pipeline
+2. `model_example.py`: Enhanced model evaluation utilities
+
 ## Problem
 The error occurs because the validation data wasn't preprocessed before being used for prediction. The validation data must go through the same preprocessing steps as the training data.
 
@@ -63,3 +70,61 @@ accuracy, conf_matrix = validate_model(model, X_val, preprocessor)
 ```
 
 This will handle all the preprocessing and validation steps in a clean, reusable way.
+
+## Enhanced Implementation with New Utilities
+
+### 1. Using the New Preprocessing Pipeline
+```python
+from preprocessing_utils import prepare_data, predict_with_validation
+from model_example import evaluate_model
+
+# Initialize your data and model
+X_train = ...  # Training features
+X_val = ...    # Validation features
+y_train = ...  # Training labels
+y_val = ...    # Validation labels
+labels = {0: 'Class A', 1: 'Class B'}
+
+try:
+    # Prepare data with consistent preprocessing
+    X_train_prep, X_val_prep = prepare_data(X_train, X_val)
+    
+    # Train your model
+    model.fit(X_train_prep, y_train)
+    
+    # Evaluate with enhanced error handling
+    accuracy, cm_plot = evaluate_model(model, X_train, X_val, y_val, labels)
+    print(f"Model achieved {accuracy:.2f} accuracy")
+    
+except ValueError as ve:
+    print(f"Data validation error: {ve}")
+except RuntimeError as re:
+    print(f"Processing error: {re}")
+```
+
+### 2. Key Improvements in New Implementation
+
+1. **Robust Error Handling**
+   - Input validation at multiple levels
+   - Detailed error messages
+   - Graceful failure handling
+
+2. **Consistent Preprocessing**
+   - Scikit-learn compatible preprocessor
+   - State validation between fit and transform
+   - Shape consistency checks
+
+3. **Enhanced Validation**
+   - Automated preprocessing pipeline
+   - Comprehensive error reporting
+   - Improved visualization options
+
+4. **Code Quality**
+   - Type hints for better IDE support
+   - Comprehensive documentation
+   - Modular design for reusability
+
+## Additional Resources
+- See `preprocessing_utils.py` for the complete preprocessing implementation
+- Check `model_example.py` for enhanced evaluation utilities
+- Refer to the docstrings in both files for detailed usage instructions
