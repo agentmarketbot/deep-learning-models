@@ -15,8 +15,17 @@ def plot_confusion_matrix(cm, classes, normalize=False):
     plt.xlabel('Predicted Label')
     return plt
 
-# Assuming you have your model and data preprocessing steps defined above
-# Here's how the validation should be structured:
+# Example usage:
+'''
+from sklearn.preprocessing import StandardScaler
+
+# Initialize and fit your preprocessor (e.g., StandardScaler) on training data
+preprocessor = StandardScaler()
+preprocessor.fit(X_train)
+
+# Then validate your model using:
+accuracy, conf_matrix = validate_model(model, X_val, preprocessor)
+'''
 
 def validate_model(model, X_val, preprocessor):
     # Preprocess validation data the same way as training data
